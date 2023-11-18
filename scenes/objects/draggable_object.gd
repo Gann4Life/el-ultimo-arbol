@@ -24,8 +24,13 @@ func begin_grab():
 	grabbed = true
 	startPosition = position
 	
+	rotation_degrees = 15
+	scale = Vector2.ONE * 1.1
+	
 func ungrab():
 	grabbed = false
+	rotation_degrees = 0
+	scale = Vector2.ONE
 #
 #    if currentSlotObject:
 #        position = currentSlotObject.position;
@@ -37,6 +42,7 @@ func adjust_position_to_slot(delta):
 		position = lerp(position, startPosition, lerpAmount)
 
 func _on_area_2d_area_entered(area: Area2D):
+	if !grabbed: return
 	currentSlotObject = area.get_parent().get_parent()
 
 func _on_area_2d_area_exited(area):
